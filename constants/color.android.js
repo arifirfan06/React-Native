@@ -6,5 +6,5 @@ const Color = {
     mainLinear: "#4e329f",
     secondLinear: "#ddb57f",
 }
-
+// this .ios and .android is also work in components react native to make platform specific features
 export default Color

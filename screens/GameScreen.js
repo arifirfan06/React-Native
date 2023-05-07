@@ -1,4 +1,12 @@
-import { View, Text, StyleSheet, Alert, FlatList } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Alert,
+  FlatList,
+  Dimensions,
+  useWindowDimensions,
+} from "react-native";
 import Title from "../components/ui/Title";
 import { useEffect, useState } from "react";
 import NUmberCtn from "../components/game/NumberContainer";
@@ -26,6 +34,7 @@ const GameScreen = ({ userInput, makeItOver }) => {
   const [currentGuess, setGuess] = useState(initGuess);
   const [guessRound, setRound] = useState([initGuess]);
 
+  const { width } = useWindowDimensions();
   useEffect(() => {
     if (currentGuess === userInput) {
       makeItOver(guessRound.length);
@@ -60,9 +69,8 @@ const GameScreen = ({ userInput, makeItOver }) => {
 
   const guessRoundLength = guessRound.length;
 
-  return (
-    <View style={styles.screen}>
-      <Title>This is Game Screen</Title>
+  let content = (
+    <>
       <NUmberCtn>{currentGuess}</NUmberCtn>
       <Card>
         <GuideText extraStyle={styles.guideStyle}>Higher or Lower?</GuideText>
@@ -80,6 +88,33 @@ const GameScreen = ({ userInput, makeItOver }) => {
           </View>
         </View>
       </Card>
+    </>
+  );
+
+  if (width > 500) {
+    content = (
+      <>
+        <View style={styles.btnCtnLandscape}>
+          <View style={styles.button}>
+            <PrimaryBtn whenPress={nextNumberHandler.bind(this, "lower")}>
+              <Ionicons name="md-remove" size={24} color={"white"} />
+            </PrimaryBtn>
+          </View>
+          <NUmberCtn>{currentGuess}</NUmberCtn>
+          <View style={styles.button}>
+            <PrimaryBtn whenPress={nextNumberHandler.bind(this, "higher")}>
+              <Ionicons name="md-add" size={24} color={"white"} />
+            </PrimaryBtn>
+          </View>
+        </View>
+      </>
+    );
+  }
+
+  return (
+    <View style={styles.screen}>
+      <Title>This is Game Screen</Title>
+      {content}
       <View style={styles.listCtn}>
         {/* {guessRound.map(guessR => <Text key={guessR}>{guessR}</Text>)} */}
         <FlatList
@@ -99,15 +134,21 @@ const GameScreen = ({ userInput, makeItOver }) => {
     </View>
   );
 };
+// Be carefull with using dimension make sure to know your target screen resolution
+// const deviceWidth = Dimensions.get('window').width
 
 const styles = StyleSheet.create({
+  btnCtnLandscape: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   guideStyle: {
     marginBottom: 12,
   },
   screen: {
     flex: 1,
     padding: 20,
-    // alignItems: 'center',
+    alignItems: "center",
   },
   button: {
     flex: 1,
