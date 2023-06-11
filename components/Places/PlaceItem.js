@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "flex-start",
     borderRadius: 6,
-    marginVertical: 12,
+    marginVertical: 7,
     backgroundColor: Colors.primary500,
     elevation: 2,
     // shadow for IOS

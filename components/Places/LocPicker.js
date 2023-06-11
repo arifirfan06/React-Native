@@ -1,6 +1,7 @@
 import { View, StyleSheet, Alert, Text } from "react-native";
 import OutlinedButton from "../UI/OutlinedButton";
 import { Colors } from "../../constant/color";
+import MapView, { Marker } from "react-native-maps";
 import {
   useNavigation,
   useRoute,
@@ -14,18 +15,18 @@ import {
 } from "expo-location";
 import { useEffect, useState } from "react";
 
-function LocPicker({onTakeLoc}) {
+function LocPicker({ onTakeLoc }) {
   // useIsFocused will return true if you are in addPlace screen which is parrent of this component
   // it will return false if you are in Map screen or other screen component
   // this happen because navigating/moving in stack navigation doesnt recreate its component but reserved and put it on top
   const isFocused = useIsFocused();
   const route = useRoute();
   const [pickedLoc, setPicked] = useState();
-  console.log(pickedLoc);
+  // console.log(pickedLoc);
   const { navigate } = useNavigation();
 
   useEffect(() => {
-    if (isFocused, route) {
+    if ((isFocused, route)) {
       const mapPickedLoc = route.params
         ? { lat: route.params.pickedLat, lng: route.params.pickedLng }
         : null;
@@ -34,12 +35,11 @@ function LocPicker({onTakeLoc}) {
   }, [route, isFocused]);
 
   useEffect(() => {
-    onTakeLoc(pickedLoc)
-    console.log('picked')
-  }, [pickedLoc, onTakeLoc])
+    onTakeLoc(pickedLoc);
+    // console.log('picked')
+  }, [pickedLoc, onTakeLoc]);
 
-
-  console.log('looped?')
+  // console.log('looped?')
   async function verivyPermission() {
     const [locPermissionObj, reqPermission] = useForegroundPermissions();
     if (locPermissionObj.status === PermissionStatus.UNDETERMINED) {
@@ -60,7 +60,7 @@ function LocPicker({onTakeLoc}) {
   async function getLocHandler() {
     const { status } = await requestForegroundPermissionsAsync();
     if (status !== "granted") {
-      console.log("Location permission denied");
+      // console.log("Location permission denied");
       return;
     }
 
@@ -70,10 +70,28 @@ function LocPicker({onTakeLoc}) {
   function pickOnMapHandler() {
     navigate("map");
   }
+  const region = {
+    latitude: pickedLoc && pickedLoc.lat,
+    longitude: pickedLoc && pickedLoc.lng,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0411,
+  };
   return (
     <View>
       <View style={styles.mapPrev}>
-        {pickedLoc && <Text>Your location latitude is {pickedLoc.lat} and the longitude is {pickedLoc.lng}</Text>}
+        {/* {pickedLoc && <Text>Your location latitude is {pickedLoc.lat} and the longitude is {pickedLoc.lng}</Text>} */}
+        {pickedLoc && (
+          <MapView style={{width: '95%', height: 190}} initialRegion={region}>
+            {pickedLoc && (
+              <Marker
+                coordinate={{
+                  latitude: pickedLoc.lat,
+                  longitude: pickedLoc.lng,
+                }}
+              />
+            )}
+          </MapView>
+        )}
       </View>
       <View style={styles.actions}>
         <OutlinedButton icon="location" onPress={getLocHandler}>

@@ -36,7 +36,7 @@ export function insertPlace(place) {
         [place.title, place.imageUri, place.location.lat, place.location.lng],
         // this bellow happen if success we get 2 params from expo which are transaction and result
         (_, result) => {
-          console.log("SQL WORKED", result);
+          console.log("insert/added", result);
           resolve(result);
         },
         // bellow if fail 2 params wich are transaction and error
@@ -56,7 +56,7 @@ export function fetchPlaces() {
         "SELECT * FROM places",
         [],
         (_, result) => {
-          console.log(result.rows._array);
+          console.log('get db',result.rows._array);
           const places = [];
           for (const dataPoint of result.rows._array) {
             places.push(
@@ -97,4 +97,24 @@ export function fetchPlaceDetails(id) {
     });
   });
   return promise
+}
+
+export function deletePlace(id) {
+  const promise = new Promise((resolve, reject) => {
+    database.transaction((transaction) => {
+      transaction.executeSql(
+        `DELETE FROM places WHERE id = ?`,
+        [id],
+        (_, result) => {
+          console.log("Deleted SQL:", result);
+          resolve(result);
+        },
+        (_, error) => {
+          console.log("Error deleting SQL:", error);
+          reject(error);
+        }
+      );
+    });
+  });
+  return promise;
 }

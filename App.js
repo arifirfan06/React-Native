@@ -22,13 +22,13 @@ export default function App() {
         setDbInit(true);
       })
       .catch((err) => {
-        console.log("ini error", err);
+        // console.log("ini error", err);
       });
   }, []);
 
-  if (!dbInit) {
-    return <AppLoading />;
-  }
+  // if (!dbInit) {
+  //   return <AppLoading />;
+  // }
 
   return (
     <>

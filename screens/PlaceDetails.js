@@ -2,7 +2,7 @@ import { Image, ScrollView, Text, View, StyleSheet } from "react-native";
 import OutlinedButton from "../components/UI/OutlinedButton";
 import { Colors } from "../constant/color";
 import { useEffect, useState } from "react";
-import { fetchPlaceDetails } from "../utils/database";
+import { fetchPlaceDetails, deletePlace } from "../utils/database";
 
 function PlaceDetails({ route, navigation }) {
   const [fetchPlace, setFetch] = useState();
@@ -13,6 +13,11 @@ function PlaceDetails({ route, navigation }) {
     });
   }
   const selectedPlaceId = route.params.placeId;
+
+  async function deleteHandler(selectedPlaceId) {
+    await deletePlace(selectedPlaceId)
+    navigation.navigate('AllPlace')
+  }
 
   useEffect(() => {
     async function loadPlaceData() {
@@ -42,9 +47,14 @@ function PlaceDetails({ route, navigation }) {
             The latitude {fetchPlace.location.lat} The Longitude {fetchPlace.location.lng}
           </Text>
         </View>
+        <View style={{flexDirection: 'row'}}>
         <OutlinedButton icon="map" onPress={showOnMapHandler}>
           View Map
         </OutlinedButton>
+        <OutlinedButton icon="trash" onPress={async () => {await deletePlace(selectedPlaceId); navigation.navigate('AllPlace')}}>
+          Delete
+        </OutlinedButton>
+      </View>
       </View>
     </ScrollView>
   );

@@ -38,7 +38,7 @@ function ImagePicker({onTakeImage}) {
       aspect: [16, 9],
       quality: 0.5,
     });
-    console.log(image.assets);
+    // console.log(image.assets);
     setImg(image.assets[0].uri);
     onTakeImage(image.assets[0].uri)
   }
