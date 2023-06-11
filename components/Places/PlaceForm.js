@@ -23,7 +23,7 @@ function PlaceForm({ onCreate }) {
     // console.log(enteredTitle);
     // console.log(selectedImage);
     // console.log(selectedLoc);
-    const placeData = new Place(enteredTitle, selectedImage, selectedLoc);
+    const placeData = new Place(enteredTitle, enteredDesc, selectedImage, selectedLoc);
     onCreate(placeData);
   }
 
@@ -42,6 +42,7 @@ function PlaceForm({ onCreate }) {
           style={styles.input}
           onChangeText={changeTitleHandler}
           value={enteredTitle}
+          maxLength={18}
         />
       </View>
       <View>
@@ -52,6 +53,7 @@ function PlaceForm({ onCreate }) {
           value={enteredDesc}
           multiline={true}
           numberOfLines={4}
+          maxLength={150}
         />
       </View>
       <ImagePicker onTakeImage={takeImageHandler} />

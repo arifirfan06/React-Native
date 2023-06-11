@@ -11,8 +11,7 @@ function PlaceItem({ place, onSelect }) {
       <View style={styles.info}>
         <Text style={styles.title}>{place.title}</Text>
         <Text style={styles.address}>
-          The latitude is {place.location.lat} and the longitude is{" "}
-          {place.location.lng}
+          {place.desc}
         </Text>
       </View>
     </Pressable>
@@ -42,7 +41,7 @@ const styles = StyleSheet.create({
   },
   info: {
     flex: 2,
-    padding: 12,
+    paddingHorizontal: 10,
   },
   title: {
     fontSize: "bold",

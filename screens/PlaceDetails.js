@@ -47,7 +47,11 @@ function PlaceDetails({ route, navigation }) {
             The latitude {fetchPlace.location.lat} The Longitude {fetchPlace.location.lng}
           </Text>
         </View>
-        <View style={{flexDirection: 'row'}}>
+        <Text style={styles.label}> {fetchPlace.desc === '' && 'No '}Description</Text>
+        {fetchPlace.desc === '' ? null : <View style={styles.descView}>
+          <Text style={styles.desc}>{fetchPlace.desc}</Text>
+        </View>}
+        <View style={{flexDirection: 'row', marginTop: 15}}>
         <OutlinedButton icon="map" onPress={showOnMapHandler}>
           View Map
         </OutlinedButton>
@@ -61,6 +65,22 @@ function PlaceDetails({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
+  descView: {
+    marginHorizontal: 15,
+    padding: 7,
+    borderWidth: 2,
+    borderColor: '#bbbfdc',
+    borderRadius: 5,
+    backgroundColor: '#585a69',
+  },
+  desc: {
+    color: Colors.primary500
+  },
+  label: {
+    fontWeight: "bold",
+    marginVertical: 7,
+    color: Colors.primary500,
+  },
   fallback: {
     flex: 1,
     justifyContent: "center",
@@ -68,7 +88,7 @@ const styles = StyleSheet.create({
   },
   image: {
     height: "35%",
-    minHeight: 300,
+    minHeight: 250,
     width: "100%",
   },
   locationCtn: {
@@ -76,7 +96,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   addressCtn: {
-    padding: 20,
+    paddingTop: 10,
   },
   address: {
     color: Colors.primary500,

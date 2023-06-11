@@ -15,7 +15,7 @@ function PlacesList({ places }) {
     return (
       <View style={styles.fallbackContainer}>
         <Text style={styles.fallbackText}>
-          No places added yet - start adding some!
+          No memo added yet - start treasure your cherished memories!
         </Text>
       </View>
     );

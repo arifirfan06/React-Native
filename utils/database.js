@@ -8,8 +8,9 @@ export function init() {
     database.transaction((transactionObj) => {
       transactionObj.executeSql(
         `CREATE TABLE IF NOT EXISTS places 
-      (id INTEGER PRIMARY KEY NOT NULL, 
-        title TEXT NOT NULL, 
+      (id INTEGER PRIMARY KEY NOT NULL,
+        title TEXT NOT NULL,
+        desc TEXT NOT NULL,
         imageUri TEXT NOT NULL,
         lat REAL NOT NULL,
         lng REAL NOT NULL)`,
@@ -27,13 +28,33 @@ export function init() {
   return promise;
 }
 
+export function unInit() {
+  const promise = new Promise((resolve, reject) => {
+    database.transaction((transactionObj) => {
+      transactionObj.executeSql(
+        `DROP TABLE IF EXISTS places`,
+        [],
+        () => {
+          console.log('Table "places" deleted successfully');
+          resolve();
+        },
+        (_, error) => {
+          console.log('Error deleting table "places":', error);
+          reject(error);
+        }
+      );
+    });
+  });
+  return promise;
+}
+
 export function insertPlace(place) {
   const promise = new Promise((resolve, reject) => {
     database.transaction((trObj) => {
       trObj.executeSql(
-        `INSERT INTO places (title, imageUri, lat, lng)
-       VALUES (?, ?, ?, ?)`,
-        [place.title, place.imageUri, place.location.lat, place.location.lng],
+        `INSERT INTO places (title, desc, imageUri, lat, lng)
+       VALUES (?, ?, ?, ?, ?)`,
+        [place.title, place.desc, place.imageUri, place.location.lat, place.location.lng],
         // this bellow happen if success we get 2 params from expo which are transaction and result
         (_, result) => {
           console.log("insert/added", result);
@@ -62,6 +83,7 @@ export function fetchPlaces() {
             places.push(
               new Place(
                 dataPoint.title,
+                dataPoint.desc,
                 dataPoint.imageUri,
                 { lat: dataPoint.lat, lng: dataPoint.lng },
                 dataPoint.id
@@ -87,7 +109,7 @@ export function fetchPlaceDetails(id) {
         [id],
         (_, result) => {
           const dbPlace = result.rows._array[0]
-          const place = new Place(dbPlace.title, dbPlace.imageUri, {lat: dbPlace.lat, lng: dbPlace.lng}, dbPlace.id)
+          const place = new Place(dbPlace.title, dbPlace.desc, dbPlace.imageUri, {lat: dbPlace.lat, lng: dbPlace.lng}, dbPlace.id)
           resolve(place)
         },
         (_, error) => {
