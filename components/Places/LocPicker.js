@@ -81,23 +81,24 @@ function LocPicker({ onTakeLoc }) {
       <View style={styles.mapPrev}>
         {/* {pickedLoc && <Text>Your location latitude is {pickedLoc.lat} and the longitude is {pickedLoc.lng}</Text>} */}
         {pickedLoc && (
-          <MapView style={{width: '95%', height: 190}} initialRegion={region}>
-            {pickedLoc && (
-              <Marker
-                coordinate={{
-                  latitude: pickedLoc.lat,
-                  longitude: pickedLoc.lng,
-                }}
-              />
-            )}
-          </MapView>
+          // <MapView style={{width: '95%', height: 190}} initialRegion={region}>
+          //   {pickedLoc && (
+          //     <Marker
+          //       coordinate={{
+          //         latitude: pickedLoc.lat,
+          //         longitude: pickedLoc.lng,
+          //       }}
+          //     />
+          //   )}
+          // </MapView>
+          <Text>Map Picked! the latitude: {pickedLoc.lat} and the longitude: {pickedLoc.lng}</Text>
         )}
       </View>
       <View style={styles.actions}>
         <OutlinedButton icon="location" onPress={getLocHandler}>
           Locate User
         </OutlinedButton>
-        <OutlinedButton icon="map" onPress={pickOnMapHandler}>
+        <OutlinedButton icon="map" disabled onPress={pickOnMapHandler}>
           Pick on map
         </OutlinedButton>
       </View>

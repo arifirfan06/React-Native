@@ -43,10 +43,12 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    color: "#",
+    color: "#bbbfdc",
   },
   fallbackText: {
     fontSize: 16,
     color: Colors.primary200,
+    marginHorizontal: 12,
+    textAlign: 'center'
   },
 });

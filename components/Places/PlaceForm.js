@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { View, Text, ScrollView, TextInput, StyleSheet } from "react-native";
+import { View, Text, ScrollView, TextInput, StyleSheet, Alert } from "react-native";
 import { Colors } from "../../constant/color";
 import ImagePicker from "./ImagePicker";
 import LocPicker from "./LocPicker";
@@ -23,6 +23,12 @@ function PlaceForm({ onCreate }) {
     // console.log(enteredTitle);
     // console.log(selectedImage);
     // console.log(selectedLoc);
+    if (enteredTitle == "" || enteredDesc == "" || !selectedImage || !selectedLoc) {
+      return Alert.alert(
+        "Input Data Required",
+        "Fill all the input data to save and proceed"
+      );
+    }
     const placeData = new Place(enteredTitle, enteredDesc, selectedImage, selectedLoc);
     onCreate(placeData);
   }

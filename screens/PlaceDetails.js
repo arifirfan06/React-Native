@@ -52,7 +52,7 @@ function PlaceDetails({ route, navigation }) {
           <Text style={styles.desc}>{fetchPlace.desc}</Text>
         </View>}
         <View style={{flexDirection: 'row', marginTop: 15}}>
-        <OutlinedButton icon="map" onPress={showOnMapHandler}>
+        <OutlinedButton icon="map" disabled onPress={showOnMapHandler}>
           View Map
         </OutlinedButton>
         <OutlinedButton icon="trash" onPress={async () => {await deletePlace(selectedPlaceId); navigation.navigate('AllPlace')}}>

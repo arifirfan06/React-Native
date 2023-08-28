@@ -35,7 +35,7 @@ function ImagePicker({onTakeImage}) {
     // }
     const image = await launchCameraAsync({
       allowsEditing: true,
-      aspect: [16, 9],
+      aspect: [4, 3],
       quality: 0.5,
     });
     // console.log(image.assets);
@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
     image: {
         width: '100%',
         height: '100%',
+        borderRadius: 4
     }
 })
 

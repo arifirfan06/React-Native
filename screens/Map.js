@@ -1,3 +1,4 @@
+import "react-native-gesture-handler";
 import { useLayoutEffect, useState, useCallback } from "react";
 import MapView, { Marker } from "react-native-maps";
 import IconBtn from "../components/UI/IconBtn";
