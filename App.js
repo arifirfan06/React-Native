@@ -14,13 +14,39 @@ import AppLoading from "expo-app-loading";
 import PlaceDetails from "./screens/PlaceDetails";
 import Auth from "./screens/Auth";
 import {GestureHandlerRootView} from "react-native-gesture-handler";
+import * as Updates from 'expo-updates';
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [dbInit, setDbInit] = useState(false);
   const [entered, setEntered] = useState(false);
+
+  async function onFetchUpdateAsync() {
+    try {
+      const update = await Updates.checkForUpdateAsync(
+        // {
+        //   headers: {
+        //     "expo-runtime-version": "exposdk:48.0.0",
+        //     "expo-channel-name": "development",
+        //     "expo-platform": "android", 
+        //   },}
+      );
+
+      if (update.isAvailable) {
+        await Updates.fetchUpdateAsync();
+        await Updates.reloadAsync();
+      }
+    } catch (error) {
+      // You can also add an alert() to see the error message in case of an error when fetching updates.
+      alert(`Error fetching latest Expo update pls help me: ${error}`);
+    }
+  }
+
   useEffect(() => {
+    // if(!__DEV__) {
+      // onFetchUpdateAsync()
+    // }
     init()
       .then(() => {
         setDbInit(true);
@@ -34,24 +60,24 @@ export default function App() {
   //   return <AppLoading />;
   // }
 
-  if (!entered) {
-    const question = "Whats the most important thing you want to treasure?";
-    const answer = "idontknow";
-    function validate(input) {
-      if (answer === input) {
-        return setEntered(true);
-      }
-    }
-    return (
-      <>
-        <StatusBar style="light" />
-        <Auth
-          question={question}
-          onPress={(inputAnswer) => validate(inputAnswer)}
-        />
-      </>
-    );
-  }
+  // if (!entered) {
+  //   const question = "Whats the most important thing you want to treasure?";
+  //   const answer = "idontknow";
+  //   function validate(input) {
+  //     if (answer === input) {
+  //       return setEntered(true);
+  //     }
+  //   }
+  //   return (
+  //     <>
+  //       <StatusBar style="light" />
+  //       <Auth
+  //         question={question}
+  //         onPress={(inputAnswer) => validate(inputAnswer)}
+  //       />
+  //     </>
+  //   );
+  // }
 
   return (
     <>

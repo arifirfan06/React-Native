@@ -2,7 +2,7 @@
   "expo": {
     "name": "Reminisce",
     "slug": "Reminisce",
-    "version": "1.0.0",
+    "version": "1.1.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -11,7 +11,8 @@
       "backgroundColor": "#221c30"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "url": "https://u.expo.dev/3c70c493-3a40-43d9-9c45-c3eb4df30d9d"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -20,7 +21,7 @@
       "supportsTablet": true
     },
     "android": {
-      "versionCode": 1,
+      "versionCode": 4,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#221c30"
@@ -39,12 +40,21 @@
         {
           "cameraPermission": "The app need access, accept please ^-^."
         }
+      ],
+      [
+        "expo-updates",
+        {
+          "username": "arifirfan"
+        }
       ]
     ],
     "extra": {
       "eas": {
         "projectId": "3c70c493-3a40-43d9-9c45-c3eb4df30d9d"
       }
+    },
+    "runtimeVersion": {
+      "policy": "sdkVersion"
     }
   }
 }
