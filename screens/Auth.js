@@ -4,6 +4,7 @@ import Button from "../components/UI/Button";
 import { TextInput } from "react-native";
 import { useState } from "react";
 import axios from "axios";
+import * as LocalAuthentication from 'expo-local-authentication';
 
 function Auth({ onPress, question }) {
   const [enteredAnswer, setEnteredAnswer] = useState("");
@@ -16,6 +17,9 @@ function Auth({ onPress, question }) {
   function emailChangeHandler(text) {
     setEmail(text);
     console.log(text);
+  }
+  function bioScan() {
+    LocalAuthentication.authenticateAsync().then(data => console.log('res bio', data))
   }
   async function submitHandler() {
     if (!inputEmail.includes("@")) {
@@ -96,7 +100,7 @@ function Auth({ onPress, question }) {
         />
         <Text style={styles.text}>{message}</Text>
         {modeIsLogin ? (
-          <Button onPress={submitHandler}>Enter</Button>
+          <Button onPress={submitHandler}>Login</Button>
         ) : (
           <Button onPress={regisHandler}>Register</Button>
         )}
@@ -105,6 +109,7 @@ function Auth({ onPress, question }) {
         ) : (
           <Button onPress={() => setMode(c => !c)}>Sudah punya akun</Button>
         )}
+        <Button onPress={bioScan}>Fingerprint</Button>
       </View>
     </View>
   );

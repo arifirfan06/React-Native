@@ -60,24 +60,24 @@ export default function App() {
   //   return <AppLoading />;
   // }
 
-  // if (!entered) {
-  //   const question = "Whats the most important thing you want to treasure?";
-  //   const answer = "idontknow";
-  //   function validate(input) {
-  //     if (answer === input) {
-  //       return setEntered(true);
-  //     }
-  //   }
-  //   return (
-  //     <>
-  //       <StatusBar style="light" />
-  //       <Auth
-  //         question={question}
-  //         onPress={(inputAnswer) => validate(inputAnswer)}
-  //       />
-  //     </>
-  //   );
-  // }
+  if (!entered) {
+    const question = "Whats the most important thing you want to treasure?";
+    const answer = "idontknow";
+    function validate(input) {
+      if (answer === input) {
+        return setEntered(true);
+      }
+    }
+    return (
+      <>
+        <StatusBar style="light" />
+        <Auth
+          question={question}
+          onPress={(inputAnswer) => validate(inputAnswer)}
+        />
+      </>
+    );
+  }
 
   return (
     <>
